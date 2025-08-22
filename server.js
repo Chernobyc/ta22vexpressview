@@ -5,14 +5,29 @@ const bodyParser = require('body-parser');
 const nunjucks = require('nunjucks');
 const db = require('./models/index');
 const paginate = require('./pagination');
+const session = require('express-session');
+
+
+const cookie_secret = 'kaspar-app-cool'
+
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// Session middleware
+app.use(session({
+    secret: cookie_secret,
+    resave: false,
+    saveUninitialized: false,
+    cookie: { 
+        secure: false,
+        maxAge: 24 * 60 * 60 * 1000 // 24 hours
+    }
+}));
 
 nunjucks.configure('views', {
     autoescape: true,
     express: app
 });
 
-// req => request , res => response
 app.get('/', async (req, res) => {
     let page = req.query.page ? parseInt(req.query.page) : 1;
     let perPage = 20;

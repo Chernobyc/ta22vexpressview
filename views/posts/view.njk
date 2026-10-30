@@ -1,0 +1,23 @@
+{% extends 'partials/layout.njk' %}
+{% block title %}{{post.title}}{% endblock %}
+
+{% block content %}
+    <div class="card mt-3">
+        <div class="card-body">
+            <h2 class="card-title">{{post.title}}</h2>
+            <p class="card-text">{{post.body}}</p>
+
+            <hr>
+
+            <p class="text-muted">
+                Created at: {{post.createdAt}}
+            </p>
+
+            <p class="text-muted">
+                Updated at: {{post.updatedAt}}
+            </p>
+
+            <a href="/posts/edit/{{post.id}}" class="btn btn-warning">Edit</a>
+        </div>
+    </div>
+{% endblock %}
